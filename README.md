@@ -78,5 +78,6 @@ The PDF was exported from a fresh run.
 
 ## Scope
 
-This lab covers data preparation only. Modeling and full exploratory analysis belong to other
-assignments and are not part of this repository.
+This is a shorter lab than most in the course: three coding tasks and a knowledge check, with
+four code cells in total. It covers data preparation only, so the documentation is sized to match.
+Modeling and full exploratory analysis belong to other assignments and are not part of this repository.
