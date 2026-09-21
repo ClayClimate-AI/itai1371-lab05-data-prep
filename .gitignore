@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+*.pyc
+.pytest_cache/
+
+# builder / internal process files (never push)
+CLAUDE.md
+claw.md
+progress.md
+checkpoints.md
+reflections.md
+PREWORK.md
+HOW_TO_OPEN_IN_CURSOR.md
+docs/adr/
+docs/Lab05_status_and_PIOF.md
+docs/Builder_loop_PIOF_template.md
+docs/Reuse_note.md
+.cursor/
