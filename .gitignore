@@ -1,11 +1,15 @@
+# Python environment and caches
 .venv/
 __pycache__/
-.ipynb_checkpoints/
-.DS_Store
 *.pyc
 .pytest_cache/
+.ipynb_checkpoints/
 
-# builder / internal process files (never push)
+# OS / editor
+.DS_Store
+.cursor/
+
+# Local working notes, not part of the submission
 CLAUDE.md
 claw.md
 progress.md
@@ -17,4 +21,5 @@ docs/adr/
 docs/Lab05_status_and_PIOF.md
 docs/Builder_loop_PIOF_template.md
 docs/Reuse_note.md
-.cursor/
+docs/contribution_draft.md
+docs/knowledge_check_draft.md

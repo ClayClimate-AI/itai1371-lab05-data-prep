@@ -1,63 +1,82 @@
-# ITAI 1371 Lab 05 — Data Preparation
+# ITAI 1371 Lab 05: Data Preparation
 
-Scaffold reused from the Module 3 Zero-Defect layout (process, folders, journals). Notebook is Module 05 Data Preparation, not Wine and not Titanic EDA.
+Module 05 lab for ITAI 1371. The notebook prepares the Titanic passenger data for machine
+learning: it fills missing values, encodes categorical columns, and scales numeric columns.
 
-## Goal
+- Author: Joseph Clay (independent contributor)
+- Notebook: `Module_05_Lab_Data_Preparation.ipynb`
+- Dataset: Titanic (891 rows x 12 columns), loaded by URL inside the notebook. Nothing to download.
+- Python 3.14 / pandas 3.0 tested. `requirements.txt` allows pandas 2.0 or newer.
 
-Complete `Module_05_Lab_Data_Preparation.ipynb`. Run cells in order. Export three PDFs for Canvas.
+## Assignment requirements and where they are met
 
-Due dates on Canvas (not reconciled yet):
-- Module / Grades page: Sep 20
-- Assignment page: Sep 30 at 11:59 PM CT
+| Requirement (Canvas / `specs/lab05_acceptance.md`) | Where it is met |
+| --- | --- |
+| Complete the Module 05 Lab notebook | Tasks 1-3 and the Knowledge Check are filled in (below) |
+| PDF 1: executed notebook | `L05_JosephClay_ITAI1371.pdf` |
+| PDF 2: reflective journal | `L05Journal_R_JosephClay_ITAI1371.pdf` |
+| PDF 3: contribution journal | `L05Journal_C_JosephClay_ITAI1371.pdf` |
+| Rubric: Project 70 (working 50 + documentation 20), Reflection 10, Contribution 20 | Notebook + this README + `docs/`; the two journals |
+| Due date | Sep 20 (module page). The assignment page shows Sep 30, 11:59 PM CT. Sep 20 was treated as the deadline. |
 
-Confirm which lock you are using before submit.
+Canvas templates may print group tokens (JSM1371). This was an individual submission, so the
+PDFs use personal ITAI1371 names.
 
-## Deliverables (Canvas)
+## What the notebook does
 
-| # | Deliverable | Suggested name |
-| --- | --- | --- |
-| 1 | Executed notebook PDF | `L05_JosephClay_ITAI1371.pdf` |
-| 2 | Reflective journal (1–2 pages) | `L05Journal_R_JosephClay_ITAI1371.pdf` |
-| 3 | Contribution journal (1–2 pages) | `L05Journal_C_JosephClay_ITAI1371.pdf` |
+| Step | Cell | What happens | Check in the cell |
+| --- | --- | --- | --- |
+| Setup | 2 | Load the data and count missing values (Age 177, Cabin 687, Embarked 2) | Printed counts |
+| Task 1 | 5 | Fill `Age` with the median | Assert: 0 missing in `Age` |
+| Task 2 | 8 | Fill `Embarked` with its mode, then one-hot encode `Sex` and `Embarked` (`drop_first=True`) | Asserts: no missing values, original columns removed, `Sex_male`, `Embarked_Q`, `Embarked_S` present |
+| Task 3 | 11 | Standardize `Age` and `Fare` with `StandardScaler` | Asserts: no missing values, mean ~0, std ~1 |
+| Knowledge Check | 12 | Written answers: median vs mean, one-hot encoding, scaling and decision trees | n/a |
 
-Canvas templates may still say group names / JSM1371. You are an independent contributor; personal ITAI1371 naming is the default unless Rao says otherwise.
+## Differences from the handout
 
-## Layout
+Full list in `docs/CHANGES_vs_handout.md`. In short:
+
+1. **Age fill uses explicit assignment.** The handout's `df['Age'].fillna(median, inplace=True)`
+   left all 177 missing values in place on pandas 3.0.6 (it changes a temporary copy).
+   The notebook uses `df['Age'] = df['Age'].fillna(median_age)` and asserts the result.
+2. **Embarked is filled before encoding.** Two missing `Embarked` values would otherwise encode as
+   all zeros and look like the dropped category. This follows the handout's guidance to use the mode for
+   categorical columns.
+3. **Assert statements added** to each task cell so silent failures stop the run.
+
+No handout instruction text was changed. Cell 12 has the answers added below the questions.
+
+## Repository layout
 
 ```text
-ITAI_1371_Lab05_Data_Prep
+itai1371-lab05-data-prep
 ├── Module_05_Lab_Data_Preparation.ipynb
+├── L05_JosephClay_ITAI1371.pdf              executed notebook
+├── L05Journal_R_JosephClay_ITAI1371.pdf     reflective journal
+├── L05Journal_C_JosephClay_ITAI1371.pdf     contribution journal
 ├── README.md
 ├── requirements.txt
-├── checkpoints.md
-├── progress.md
-├── reflections.md
-├── HOW_TO_OPEN_IN_CURSOR.md
-├── assets/
-├── docs/
-├── scripts/setup_gate.py
-├── specs/
-└── tests/
+├── scripts/setup_gate.py                    environment check
+├── specs/lab05_acceptance.md                acceptance criteria from Canvas
+├── tests/test_imports.py                    import smoke test
+└── docs/CHANGES_vs_handout.md               deviations from the handout
 ```
 
-Course materials also live in HCC docs on my computer: slides + feature engineering PDFs under `hcc_docs/assignments/lab05/`.
-
-## Setup
+## Reproduce
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python scripts/setup_gate.py
+python scripts/setup_gate.py        # expect: OK Lab 05 environment gate passed
+python -m pytest tests -q           # expect: 1 passed
 jupyter notebook Module_05_Lab_Data_Preparation.ipynb
 ```
 
-Kernel → Restart & Run All before PDF export.
+In Jupyter, use Kernel > Restart & Run All. Cells should number 1-4 in order with no failed asserts.
+The PDF was exported from a fresh run.
 
-## Midterm link
+## Scope
 
-Mid Term EDA (due Oct 3) builds on Lab 04 and Lab 05. Dataset approval window starts around Sep 20.
-
-## Prework
-
-Learner overview and slides: see `PREWORK.md`.
+This lab covers data preparation only. Modeling and full exploratory analysis belong to other
+assignments and are not part of this repository.
