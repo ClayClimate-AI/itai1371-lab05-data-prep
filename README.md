@@ -1,5 +1,10 @@
 # ITAI 1371 Lab 05: Data Preparation
 
+![Python](https://img.shields.io/badge/python-3.14-blue)
+![pandas](https://img.shields.io/badge/pandas-3.0-150458)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-StandardScaler-F7931E)
+![Jupyter](https://img.shields.io/badge/notebook-Jupyter-F37626)
+
 Module 05 lab for ITAI 1371. The notebook prepares the Titanic passenger data for machine
 learning: it fills missing values, encodes categorical columns, and scales numeric columns.
 
